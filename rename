@@ -1,0 +1,59 @@
+#!/bin/bash
+
+# Function to display help message
+print_help() {
+    echo -e "\033[1;34mUsage:\033[0m $0 [options] <string>"
+    echo
+    echo -e "\033[1;32mOptions:\033[0m"
+    echo -e "  \033[1;33m-c\033[0m       Create a file with the given string (spaces replaced with hyphens) and .c extension"
+    echo -e "  \033[1;33m-h\033[0m       Display this help message"
+    echo
+    echo -e "\033[1;32mArguments:\033[0m"
+    echo -e "  <string> The input string where spaces will be replaced with hyphens and appended with .c"
+}
+
+# Function to print error messages in red
+print_error() {
+    echo -e "\033[1;31mError:\033[0m $1"
+}
+
+# Parse options
+create_file=0
+while getopts ":ch" opt; do
+    case $opt in
+        c) create_file=1 ;;
+        h) print_help; exit 0 ;;
+        \?) print_error "Invalid option: -$OPTARG"; exit 1 ;;
+        :) print_error "Option -$OPTARG requires an argument."; exit 1 ;;
+    esac
+done
+
+# Shift processed options away from positional parameters
+shift $((OPTIND -1))
+
+# Ensure that at least one argument is provided
+if [ $# -eq 0 ]; then
+    print_error "No input string provided."
+    print_help
+    exit 1
+fi
+
+# Concatenate all remaining arguments into a single string
+input_text="$*"
+
+# Replace all spaces in the input string with hyphens
+output_text="${input_text// /-}"
+
+# Append '.c' to the modified string
+filename="$output_text.c"
+
+# Display the formatted output
+echo -e "\033[1;34m[ Given Text ]:\033[0m \"$input_text\""
+echo -e "\033[1;34m[ Replaced Text ]:\033[0m \"$output_text\""
+echo -e "\033[1;34m[ File name ]:\033[0m \"$filename\""
+
+# Create the file if the -c flag was set
+if [ "$create_file" -eq 1 ]; then
+    touch "$filename"
+    mousepad $filename
+fi
