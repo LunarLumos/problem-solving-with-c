@@ -1,14 +1,10 @@
 #include <stdio.h>
 
 int main() {
-    int day, month, year;
-    printf("Enter a date in DDMMYYYY format: ");
-    scanf("%2d%2d%4d", &day, &month, &year); 
-
-    // Display
-    printf("Day: %d\n", day);
-    printf("Month: %d\n", month);
-    printf("Year: %d\n", year);
+    int d, m, y;
+    printf("Enter date (DD,MM,YYYY): ");
+    scanf("%d%*c%d%*c%d", &d, &m, &y); // This format allows for any character as separator
+    printf("Day = %d\nMonth = %d\nYear = %d\n", d, m, y);
 
     return 0;
 }
