@@ -1,22 +1,23 @@
 #include <stdio.h>
 
 int main() {
-    int n;
-    printf("Enter the last number: ");
+    int n, sum = 0;
+
+    printf("Enter the number of terms (n): ");
     scanf("%d", &n);
-    int sum = 0;
 
-    printf("Numbers: ");
-    for (int i = 4; i <= n; i += 8) {
-        sum += i; 
+    printf("Series: ");
+    for (int i = 4; i <= n; i = i + 8) {
+        sum = sum + i;
         printf("%d", i);
-
-        if (i + 8 <= n) {
+        if (i < n) {
             printf(" + ");
         }
     }
-    printf("\n");
-
-    printf("The sum of numbers from 4 to %d by gaping 8 is: %d\n", n, sum);
+    
+    printf(" = %d\n", sum);
     return 0;
 }
+
+
+//4+12+20+...
