@@ -10,7 +10,7 @@ int main() {
     for (int i = 4; i <= n; i = i + 8) {
         sum = sum + i;
         printf("%d", i);
-        if (i < n) {
+        if (i + 8 <= n) {
             printf(" + ");
         }
     }
